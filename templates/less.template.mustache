@@ -1,8 +1,9 @@
-{
-  // Default options
-  'functions': true
-}
+//
+// Auto generated - do not edit
+//
 
+{{#options.sprites}}
+@{{options.spriteImage}}: "{{{options.spritePath}}}";
 {{#items}}
   @{{name}}-x: {{px.x}};
   @{{name}}-y: {{px.y}};
@@ -12,7 +13,7 @@
   @{{name}}-height: {{px.height}};
   @{{name}}: {{px.x}} {{px.y}} {{px.offset_x}} {{px.offset_y}} {{px.width}} {{px.height}};
 {{/items}}
-
+{{/options.sprites}}
 {{#options.functions}}
   .sprite-width(@sprite) {
     width: ~`"@{sprite}".split(', ')[4]`;
@@ -28,17 +29,8 @@
     background-position: @sprite-offset-x  @sprite-offset-y;
   }
 
-  .sprite-image() {
-    {{#options.spritePath}}
-      background-image: url('{{{options.spritePath}}}');
-    {{/options.spritePath}}
-    {{^options.spritePath}}
-      background-image: url('../img/sprites.png');
-    {{/options.spritePath}}
-  }
-
-  .sprite(@sprite) {
-    .sprite-image();
+  .sprite(@sprite, @spriteImage) {
+    background-image: url(@{spriteImage});
     .sprite-position(@sprite);
     .sprite-width(@sprite);
     .sprite-height(@sprite);

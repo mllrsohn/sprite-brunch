@@ -1,4 +1,9 @@
-${{options.spriteImage}}: {{{options.spritePath}}};
+//
+// Auto generated - do not edit
+//
+
+{{#options.sprites}}
+${{options.spriteImage}}: "{{{options.spritePath}}}";
 {{#items}}
   ${{name}}-x: {{px.x}};
   ${{name}}-y: {{px.y}};
@@ -8,6 +13,7 @@ ${{options.spriteImage}}: {{{options.spritePath}}};
   ${{name}}-height: {{px.height}};
   ${{name}}: {{px.x}} {{px.y}} {{px.offset_x}} {{px.offset_y}} {{px.width}} {{px.height}};
 {{/items}}
+{{/options.sprites}}
 
 {{#options.functions}}
   @mixin sprite-width($sprite) {
@@ -33,8 +39,8 @@ ${{options.spriteImage}}: {{{options.spritePath}}};
     {{/options.spritePath}}
   }
 
-  @mixin sprite($sprite) {
-    @include sprite-image();
+  @mixin sprite($spriteImage, $sprite) {
+    background-image: url(#{$spriteImage});
     @include sprite-position($sprite);
     @include sprite-width($sprite);
     @include sprite-height($sprite);
