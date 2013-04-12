@@ -1,12 +1,12 @@
 {
   "name": "sprite-brunch",
   "version": "0.0.1",
-  "description": "Adds {{DESCRIPTION}} support to brunch.",
+  "description": "Language agnostic sprite generator for brunch",
   "author": "Steffen Mpüller",
-  "homepage": "https://github.com/brunch/{{NAME}}-brunch",
+  "homepage": "https://github.com/mllrsohn/sprite-brunch",
   "repository": {
     "type": "git",
-    "url": "git@github.com:brunch/{{NAME}}-brunch.git"
+    "url": "git@github.com:mllrsohn/sprite-brunch.git"
   },
   "main": "./lib/index",
   "scripts": {
