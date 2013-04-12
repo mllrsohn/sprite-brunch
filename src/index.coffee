@@ -109,14 +109,7 @@ module.exports = class SpriteBrunch
 
 	writeStyles: (cssStr) ->
 		spritePath = sysPath.join @config.paths.app, @options.destCSS
-		# Only write file if
-		currentSprite = fs.readFileSync(spritePath, 'utf8');
-
-		currentHash = crypto.createHash('md5').update(currentSprite).digest('hex')
-		newHash = crypto.createHash('md5').update(cssStr).digest('hex')
-
-		unless currentHash isnt newHash
-			fs.writeFileSync(spritePath, cssStr, 'utf8')
+		fs.writeFileSync(spritePath, cssStr, 'utf8')
 
 	addTemplate: (template) ->
 		templatePath = sysPath.join __dirname, '..', 'templates', template + '.template.mustache'
