@@ -83,7 +83,7 @@ module.exports = class SpriteBrunch
 				return false
 
 			# Generate md5 hash from image
-			hash = crypto.createHash('md5').update(result.image).digest('hex')
+			hash = crypto.createHash('sha1').update(result.image).digest('hex')
 
 			imageFile = foldername + '-' + hash + '.' + format
 			imageFilePath = sysPath.join @spritePath, imageFile
@@ -109,7 +109,16 @@ module.exports = class SpriteBrunch
 
 	writeStyles: (cssStr) ->
 		spritePath = sysPath.join @config.paths.app, @options.destCSS
-		fs.writeFileSync(spritePath, cssStr, 'utf8')
+		sha = crypto.createHash('sha1').update(cssStr).digest('hex')
+		sha2 = ''
+
+		if fs.existsSync(spritePath)
+			currentFile = fs.readFileSync(spritePath, 'utf8');
+			sha2 = crypto.createHash('sha1').update(currentFile).digest('hex')
+
+		if sha isnt sha2
+			console.log('write file');
+			fs.writeFileSync(spritePath, cssStr, 'utf8')
 
 	addTemplate: (template) ->
 		templatePath = sysPath.join __dirname, '..', 'templates', template + '.template.mustache'
