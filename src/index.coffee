@@ -91,7 +91,7 @@ module.exports = class SpriteBrunch
 
 	generateStyles: (coordinates, imageFile) ->
 		formatOpts =
-			spritePath: '../' + @options.path + imageFile
+			spritePath: '../' + @options.path + '/' + imageFile
 
 		cssStr = json2css(coordinates, { format: @options.cssFormat, formatOpts: formatOpts})
 		spritePath = sysPath.join @config.paths.app, @options.destCSS
