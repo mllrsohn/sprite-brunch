@@ -14,11 +14,11 @@ module.exports = class SpriteBrunch
 		@options = _.extend
 			path: 'images/sprites'
 			destCSS: 'sass/_sprites.sass'
-			algorithm: 'alt-diagonal'
+			algorithm: 'top-down'
 			cssFormat: 'sass'
 			engine: 'canvas'
 			imgOpts:
-				format: 'png'
+				format: 'auto'
 				quality: 90
 
 			, @config.sprites
@@ -44,14 +44,11 @@ module.exports = class SpriteBrunch
 					spriteImages.push(sysPath.join(imagePath, image)) if !!~@formats.indexOf(path.extname(image).toLowerCase())
 
 				# Set auto Format
-				if @options.imgOpts.format is 'auto' and hasJpg
-					@options.imgOpts.format = 'jpg'
-				else
-					@options.imgOpts.format = 'png'
+				format = if @options.imgOpts.format is 'auto' and hasJpg then 'jpg' else 'png'
+				console.log(format)
+				@generateSprites(spriteImages, folder, format) if spriteImages.length > 0
 
-				@generateSprites(spriteImages, folder) if spriteImages.length > 0
-
-	generateSprites: (files, foldername) ->
+	generateSprites: (files, foldername, format) ->
 		spritesmithParams =
 			src: files
 			engine: @options.engine
@@ -67,7 +64,7 @@ module.exports = class SpriteBrunch
 			# Generate md5 hash from image
 			hash = crypto.createHash('md5').update(result.image).digest('hex')
 
-			imageFile = foldername + '-' + hash + '.' + @options.imgOpts.format
+			imageFile = foldername + '-' + hash + '.' + format
 			imageFilePath = sysPath.join @spritePath, imageFile
 
 			# Return if file exits
