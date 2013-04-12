@@ -22,7 +22,7 @@ sprites:
 ```
 
 ## Usage
-It expects the following folder structure and uses the folder name as prefix for the css variable
+It expects the following folder structure and uses the folder name as first value and the filename as the second
 
 ```
 images/sprites/icons
@@ -35,7 +35,7 @@ images/sprites/backgrounds
 
 ```sass
 #test
-	+sprite($icons, $icons_icona)
+	+sprite($icons, $icona)
 ```
 
 Add `"sprite-brunch": "0.0.1"` to `package.json` of your brunch app.
