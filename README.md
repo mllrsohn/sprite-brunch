@@ -35,7 +35,7 @@ images/sprites/backgrounds
 
 ```sass
 #test
-	+sprite($icons_icona)
+	+sprite($icons, $icons_icona)
 ```
 
 Add `"sprite-brunch": "0.0.1"` to `package.json` of your brunch app.
