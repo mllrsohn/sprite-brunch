@@ -12,7 +12,7 @@ Check out the [Spritesmith](https://github.com/Ensighten/spritesmith#requirement
 sprites:
 	path: 'images/sprites' # Path to your sprites folder
 	destCSS: 'sass/_sprites.sass' # Destination sass/less/stylus files
-	cssFormat: 'sass' # json, less, sass, scss, stylus
+	cssFormat: 'sass' # less, sass, scss, stylus
 	algorithm: 'top-down' # algorithm: top-down, left-right, diagonal (\ format), alt-diagonal
 	engine: 'canvas' # canvas, gm
 	imgOpts:
