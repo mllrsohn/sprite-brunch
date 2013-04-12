@@ -130,7 +130,7 @@ module.exports = class SpriteBrunch
 		Object.keys(coordinates).forEach (key) ->
 			stylename = key.split '/'
 			stylename = stylename.pop()
-			stylename = foldername + '_' + stylename.replace(/\.[^/.]+$/, '')
+			stylename = stylename.replace(/\.[^/.]+$/, '')
 			coordinates[stylename] = coordinates[key]
 			delete coordinates[ key ]
 
