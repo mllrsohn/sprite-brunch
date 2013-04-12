@@ -4,6 +4,7 @@ sysPath = require 'path'
 spritesmith = require 'spritesmith'
 json2css = require 'json2css'
 crypto = require 'crypto'
+_when = require 'when'
 path = require "path"
 
 module.exports = class SpriteBrunch
@@ -28,6 +29,7 @@ module.exports = class SpriteBrunch
 
 	onCompile: () ->
 		spriteFolders = fs.readdirSync(@spritePath)
+		alldone = []
 		if spriteFolders
 			spriteFolders.forEach (folder) =>
 				hasJpg = false
@@ -45,10 +47,29 @@ module.exports = class SpriteBrunch
 
 				# Set auto Format
 				format = if @options.imgOpts.format is 'auto' and hasJpg then 'jpg' else 'png'
-				console.log(format)
-				@generateSprites(spriteImages, folder, format) if spriteImages.length > 0
+				alldone.push @generateSprites(spriteImages, folder, format) if spriteImages.length > 0
+
+				# Generate Styles when everything is done
+				_when.all(alldone).then (sprites) =>
+					# Add Template
+					@addTemplate(@options.cssFormat)
+
+					# Generate Functions
+					styles = ''
+					sprites.forEach (sprite) =>
+						formatOpts =
+							sprites: true
+							spriteImage: sprite.foldername
+							spritePath: '../' + @options.path + '/' + sprite.imageFile
+
+						styles += json2css(sprite.coordinates, { format: @options.cssFormat, formatOpts: formatOpts})
+
+					styles += json2css({}, { format: @options.cssFormat, formatOpts: {functions: true}})
+					@writeStyles(styles)
+
 
 	generateSprites: (files, foldername, format) ->
+		done = _when.defer()
 		spritesmithParams =
 			src: files
 			engine: @options.engine
@@ -80,20 +101,27 @@ module.exports = class SpriteBrunch
 				# Write File to Disk
 				fs.writeFileSync(imageFilePath, result.image, 'binary')
 
-				# Get coordinates and write style
-				coordinates = @processCoordinates(result.coordinates, foldername)
-				@generateStyles(coordinates, imageFile)
+			# Get coordinates and resolove, need all coordinates not only changed
+			done.resolve {coordinates: @processCoordinates(result.coordinates, foldername), imageFile: imageFile, foldername: foldername}
 
-		null
+		# Return a promise
+		done.promise
 
-	generateStyles: (coordinates, imageFile) ->
-		formatOpts =
-			spritePath: '../' + @options.path + '/' + imageFile
-
-		cssStr = json2css(coordinates, { format: @options.cssFormat, formatOpts: formatOpts})
+	writeStyles: (cssStr) ->
 		spritePath = sysPath.join @config.paths.app, @options.destCSS
-		fs.writeFileSync(spritePath, cssStr, 'utf8')
+		# Only write file if
+		currentSprite = fs.readFileSync(spritePath, 'utf8');
 
+		currentHash = crypto.createHash('md5').update(currentSprite).digest('hex')
+		newHash = crypto.createHash('md5').update(cssStr).digest('hex')
+
+		unless currentHash isnt newHash
+			fs.writeFileSync(spritePath, cssStr, 'utf8')
+
+	addTemplate: (template) ->
+		templatePath = sysPath.join __dirname, '..', 'templates', template + '.template.mustache'
+		currentTemplate = fs.readFileSync(templatePath, 'utf8');
+		json2css.addMustacheTemplate(template, currentTemplate);
 
 	processCoordinates: (coordinates, foldername) ->
 

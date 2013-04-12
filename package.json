@@ -16,7 +16,8 @@
   "dependencies": {
     "spritesmith": "~0.3.8",
     "json2css": "~1.2.5",
-    "underscore": "~1.4.4"
+    "underscore": "~1.4.4",
+    "when": "~2.0.1"
   },
   "devDependencies": {
     "mocha": "1.8.1",
