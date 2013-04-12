@@ -9,15 +9,15 @@ Check out the [Spritesmith](https://github.com/Ensighten/spritesmith#requirement
 
 ## Config
 ```coffeescript
-	sprites:
-		path: 'images/sprites' # Path to your sprites folder
-		destCSS: 'sass/_sprites.sass' # Destination sass/less/stylus files
-		cssFormat: 'sass' # json, less, sass, scss, stylus
-		algorithm: 'top-down' # algorithm: top-down, left-right, diagonal (\ format), alt-diagonal
-		engine: 'canvas' # canvas, gm
-		imgOpts:
-			format: 'auto' # auto, jpg, png (If auto is used and there is png and jpg in a folder the sprite will be jpg)
-			quality: 90 # Quality of the output image
+sprites:
+	path: 'images/sprites' # Path to your sprites folder
+	destCSS: 'sass/_sprites.sass' # Destination sass/less/stylus files
+	cssFormat: 'sass' # json, less, sass, scss, stylus
+	algorithm: 'top-down' # algorithm: top-down, left-right, diagonal (\ format), alt-diagonal
+	engine: 'canvas' # canvas, gm
+	imgOpts:
+		format: 'auto' # auto, jpg, png (If auto is used and there is png and jpg in a folder the sprite will be jpg)
+		quality: 90 # Quality of the output image
 
 ```
 
@@ -25,17 +25,17 @@ Check out the [Spritesmith](https://github.com/Ensighten/spritesmith#requirement
 It expects the following folder structure and uses the folder name as prefix for the css variable
 
 ```
-	images/sprites/icons
-		icona.png
-		iconb.png
-	images/sprites/backgrounds
+images/sprites/icons
+	icona.png
+	iconb.png
+images/sprites/backgrounds
 ```
 
 # SASS Exmaple
 
 ```sass
-	#test
-		+sprite($icons_icona)
+#test
+	+sprite($icons_icona)
 ```
 
 Add `"sprite-brunch": "0.0.1"` to `package.json` of your brunch app.
