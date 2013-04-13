@@ -31,7 +31,7 @@ images/sprites/icons
 images/sprites/backgrounds
 ```
 
-# SASS Exmaple
+# SASS Example
 
 ```sass
 #test
