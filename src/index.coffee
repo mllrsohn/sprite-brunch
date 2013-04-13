@@ -19,7 +19,7 @@ module.exports = class SpriteBrunch
 			cssFormat: 'sass'
 			engine: 'canvas'
 			imgOpts:
-				format: 'auto'
+				format: 'jpg'
 				quality: 90
 
 			, @config.sprites
@@ -46,7 +46,10 @@ module.exports = class SpriteBrunch
 					spriteImages.push(sysPath.join(imagePath, image)) if !!~@formats.indexOf(path.extname(image).toLowerCase())
 
 				# Set auto Format
-				format = if @options.imgOpts.format is 'auto' and hasJpg then 'jpg' else 'png'
+				format = @options.imgOpts.format
+				if @options.imgOpts.format is 'auto'
+					format = if hasJpg is true then 'jpg' else 'png'
+
 				alldone.push @generateSprites(spriteImages, folder, format) if spriteImages.length > 0
 
 				# Generate Styles when everything is done
@@ -70,11 +73,14 @@ module.exports = class SpriteBrunch
 
 	generateSprites: (files, foldername, format) ->
 		done = _when.defer()
+
 		spritesmithParams =
 			src: files
 			engine: @options.engine
 			algorithm: @options.algorithm
-			exportOpts: @options.exportOpts
+			exportOpts:
+				format: format
+				quality: @options.imgOpts.quality
 
 		# Generate Sprites
 		spritesmith spritesmithParams, (err, result) =>
@@ -117,7 +123,7 @@ module.exports = class SpriteBrunch
 			sha2 = crypto.createHash('sha1').update(currentFile).digest('hex')
 
 		if sha isnt sha2
-			console.log('write file');
+			console.log('Writing sprites');
 			fs.writeFileSync(spritePath, cssStr, 'utf8')
 
 	addTemplate: (template) ->

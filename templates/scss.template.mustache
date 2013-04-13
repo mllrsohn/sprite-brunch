@@ -30,15 +30,6 @@ ${{options.spriteImage}}: "{{{options.spritePath}}}";
     background-position: $sprite-offset-x  $sprite-offset-y;
   }
 
-  @mixin sprite-image() {
-    {{#options.spritePath}}
-    background-image: url('{{{options.spritePath}}}');
-    {{/options.spritePath}}
-    {{^options.spritePath}}
-    background-image: url('../img/sprites.png');
-    {{/options.spritePath}}
-  }
-
   @mixin sprite($spriteImage, $sprite) {
     background-image: url(#{$spriteImage});
     @include sprite-position($sprite);
