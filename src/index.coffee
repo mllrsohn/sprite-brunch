@@ -100,7 +100,7 @@ module.exports = class SpriteBrunch
 				# Cleanup other sprite images
 				allImages = fs.readdirSync(@spritePath)
 				allImages.forEach (singleImage) =>
-					if singleImage.match(foldername + '-(.{32})\.(png|jpg)')
+					if singleImage.match(foldername + '-(.{40})\.(png|jpg)')
 						existingFile = sysPath.join @spritePath, singleImage
 						fs.unlinkSync(existingFile)
 
