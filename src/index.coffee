@@ -19,7 +19,7 @@ module.exports = class SpriteBrunch
 			cssFormat: 'sass'
 			engine: 'canvas'
 			imgOpts:
-				format: 'jpg'
+				format: 'auto'
 				quality: 90
 
 			, @config.sprites
@@ -28,6 +28,7 @@ module.exports = class SpriteBrunch
 		@formats = @png.concat(@jpegs)
 
 	onCompile: () ->
+		return unless fs.existsSync(@spritePath)
 		spriteFolders = fs.readdirSync(@spritePath)
 		alldone = []
 		if spriteFolders
