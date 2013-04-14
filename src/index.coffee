@@ -124,8 +124,8 @@ module.exports = class SpriteBrunch
 			sha2 = crypto.createHash('sha1').update(currentFile).digest('hex')
 
 		if sha isnt sha2
-			console.log('Writing sprites');
-			fs.writeFileSync(spritePath, cssStr, 'utf8')
+			fs.writeFile spritePath, cssStr, 'utf8', (err) ->
+				console.log('Could not write stylesheet, please make sure the path exists') if err
 
 	addTemplate: (template) ->
 		templatePath = sysPath.join __dirname, '..', 'templates', template + '.template.mustache'
