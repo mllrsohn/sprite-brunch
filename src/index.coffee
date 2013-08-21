@@ -13,8 +13,8 @@ module.exports = class SpriteBrunch
 	jpegs : [".jpg", "jpeg"]
 	constructor: (@config) ->
 		@options = _.extend
-			path: 'images/sprites'
-			destCSS: 'sass/_sprites.sass'
+			path: 'app/assets/images/sprites'
+			destCSS: 'app/sass/_sprites.sass'
 			algorithm: 'top-down'
 			cssFormat: 'sass'
 			engine: 'canvas'
@@ -24,10 +24,10 @@ module.exports = class SpriteBrunch
 
 			, @config.sprites
 
-		@spritePath = sysPath.join @config.paths.assets, @options.path
+		@spritePath = sysPath.resolve @options.path
 		@formats = @png.concat(@jpegs)
 
-	onCompile: () ->
+	onCompile: (changedFiles) ->
 		return unless fs.existsSync(@spritePath)
 		spriteFolders = fs.readdirSync(@spritePath)
 		alldone = []
@@ -36,7 +36,7 @@ module.exports = class SpriteBrunch
 				hasJpg = false
 
 				# Only Folders
-				imagePath = sysPath.join @config.paths.assets, @options.path, folder
+				imagePath = sysPath.join @options.path, folder
 				stat = fs.statSync imagePath
 				return if stat.isFile()
 
@@ -70,7 +70,6 @@ module.exports = class SpriteBrunch
 
 					styles += json2css({}, { format: @options.cssFormat, formatOpts: {functions: true}})
 					@writeStyles(styles)
-
 
 	generateSprites: (files, foldername, format) ->
 		done = _when.defer()

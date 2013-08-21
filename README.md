@@ -10,7 +10,7 @@ Check out the [Spritesmith](https://github.com/Ensighten/spritesmith#requirement
 ## Config
 ```coffeescript
 sprites:
-	path: 'images/sprites' # Path to your sprites folder
+	path: 'app/assets/images/sprites' # Path to your sprites folder
 	destCSS: 'sass/_sprites.sass' # Destination sass/less/stylus files
 	cssFormat: 'sass' # less, sass, scss, stylus
 	algorithm: 'top-down' # algorithm: top-down, left-right, diagonal (\ format), alt-diagonal
@@ -25,10 +25,10 @@ sprites:
 It expects the following folder structure and uses the folder name as first value and the filename as the second
 
 ```
-images/sprites/icons
+app/assets/images/sprites/icons
 	icona.png
 	iconb.png
-images/sprites/backgrounds
+app/assets/images/sprites/backgrounds
 ```
 
 # SASS Example
@@ -38,7 +38,7 @@ images/sprites/backgrounds
 	+sprite($icons, $icona)
 ```
 
-Add `"sprite-brunch": "0.0.1"` to `package.json` of your brunch app.
+Add `"sprite-brunch": "0.0.2"` to `package.json` of your brunch app.
 
 Pick a plugin version that corresponds to your minor (y) brunch version.
 
