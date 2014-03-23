@@ -67,7 +67,7 @@ module.exports = class SpriteBrunch
 							spritePath: '../' + @options.path + '/' + sprite.imageFile
 
 						styles += json2css(sprite.coordinates, { format: @options.cssFormat, formatOpts: formatOpts})
-          dummy_data = [{'name': 'github', 'x': 0, 'y': 0, 'width': 10, 'height': 20, 'total_width': 80, 'total_height': 100, 'image': 'spritesheet.png'}]
+          				dummy_data = [{'name': 'github', 'x': 0, 'y': 0, 'width': 10, 'height': 20, 'total_width': 80, 'total_height': 100, 'image': 'spritesheet.png'}]
 					styles += json2css(dummy_data, { format: @options.cssFormat, formatOpts: {functions: true}})
 					@writeStyles(styles)
 
@@ -115,7 +115,7 @@ module.exports = class SpriteBrunch
 
 	writeStyles: (cssStr) ->
 		# spritePath = sysPath.join @config.paths.app, @options.destCSS
-    spritePath = @options.destCSS
+                spritePath = @options.destCSS
 		sha = crypto.createHash('sha1').update(cssStr).digest('hex')
 		sha2 = ''
 
@@ -133,14 +133,14 @@ module.exports = class SpriteBrunch
 		json2css.addMustacheTemplate(template, currentTemplate);
 
 	processCoordinates: (coordinates, foldername, imageFile) ->
-    new_coordinates = []
+    		new_coordinates = []
 		Object.keys(coordinates).forEach (key) ->
 			stylename = key.split '/'
 			stylename = stylename.pop()
 			stylename = stylename.replace(/\.[^/.]+$/, '')
-      coordinates[key].image = imageFile
-      coordinates[key].name  = stylename
-      new_coordinates.push(coordinates[key])
+			coordinates[key].image = imageFile
+			coordinates[key].name  = stylename
+			new_coordinates.push(coordinates[key])
 			delete coordinates[ key ]
 
 		new_coordinates
