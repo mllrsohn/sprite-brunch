@@ -22,7 +22,7 @@ module.exports = class SpriteBrunch
 				format: 'auto'
 				quality: 90
 
-			, @config.sprites
+			, @config.plugins.sprites
 
 		@spritePath = sysPath.resolve @options.path
 		@formats = @png.concat(@jpegs)
@@ -67,8 +67,8 @@ module.exports = class SpriteBrunch
 							spritePath: '../' + @options.path + '/' + sprite.imageFile
 
 						styles += json2css(sprite.coordinates, { format: @options.cssFormat, formatOpts: formatOpts})
-
-					styles += json2css({}, { format: @options.cssFormat, formatOpts: {functions: true}})
+          				dummy_data = [{'name': 'github', 'x': 0, 'y': 0, 'width': 10, 'height': 20, 'total_width': 80, 'total_height': 100, 'image': 'spritesheet.png'}]
+					styles += json2css(dummy_data, { format: @options.cssFormat, formatOpts: {functions: true}})
 					@writeStyles(styles)
 
 	generateSprites: (files, foldername, format) ->
@@ -108,13 +108,14 @@ module.exports = class SpriteBrunch
 				fs.writeFileSync(imageFilePath, result.image, 'binary')
 
 			# Get coordinates and resolove, need all coordinates not only changed
-			done.resolve {coordinates: @processCoordinates(result.coordinates, foldername), imageFile: imageFile, foldername: foldername}
+			done.resolve {coordinates: @processCoordinates(result.coordinates, foldername, imageFile), imageFile: imageFile, foldername: foldername}
 
 		# Return a promise
 		done.promise
 
 	writeStyles: (cssStr) ->
-		spritePath = sysPath.join @config.paths.app, @options.destCSS
+		# spritePath = sysPath.join @config.paths.app, @options.destCSS
+                spritePath = @options.destCSS
 		sha = crypto.createHash('sha1').update(cssStr).digest('hex')
 		sha2 = ''
 
@@ -131,13 +132,15 @@ module.exports = class SpriteBrunch
 		currentTemplate = fs.readFileSync(templatePath, 'utf8');
 		json2css.addMustacheTemplate(template, currentTemplate);
 
-	processCoordinates: (coordinates, foldername) ->
-
+	processCoordinates: (coordinates, foldername, imageFile) ->
+    		new_coordinates = []
 		Object.keys(coordinates).forEach (key) ->
 			stylename = key.split '/'
 			stylename = stylename.pop()
 			stylename = stylename.replace(/\.[^/.]+$/, '')
-			coordinates[stylename] = coordinates[key]
+			coordinates[key].image = imageFile
+			coordinates[key].name  = stylename
+			new_coordinates.push(coordinates[key])
 			delete coordinates[ key ]
 
-		coordinates
+		new_coordinates
