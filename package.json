@@ -1,6 +1,6 @@
 {
   "name": "sprite-brunch",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Language agnostic sprite generator for brunch",
   "author": "Steffen Müller",
   "homepage": "https://github.com/mllrsohn/sprite-brunch",
