@@ -1,26 +1,18 @@
 {
   "name": "sprite-brunch",
-  "version": "0.0.3",
+  "version": "0.1.3",
   "description": "Language agnostic sprite generator for brunch",
-  "author": "Steffen Müller",
-  "homepage": "https://github.com/mllrsohn/sprite-brunch",
+  "author": "Andrew Cox",
+  "homepage": "https://github.com/aedryan/sprite-brunch",
   "repository": {
     "type": "git",
-    "url": "git@github.com:mllrsohn/sprite-brunch.git"
-  },
-  "main": "./lib/index",
-  "scripts": {
-    "prepublish": "rm -rf lib && coffee --bare --output lib/ src/",
-    "test": "node_modules/.bin/mocha --compilers coffee:coffee-script --require test/common.js"
+    "url": "git@github.com:aedryan/sprite-brunch.git"
   },
   "dependencies": {
-    "spritesmith": "~0.3.11",
-    "json2css": "~3.2.0",
-    "underscore": "~1.5.1",
-    "when": "~2.3.0"
+    "lodash.assign": "^4.2.0",
+    "mkdirp": "^0.5.1",
+    "spritesheet-templates": "^10.2.1",
+    "spritesmith": "^3.1.0"
   },
-  "devDependencies": {
-    "mocha": "1.8.1",
-    "chai": "1.4.2"
-  }
+  "license": "MIT"
 }
