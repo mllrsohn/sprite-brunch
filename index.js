@@ -42,7 +42,7 @@
     spriteFolders = fs.readdirSync(this.spritePath);
     alldone = [];
     if (spriteFolders) {
-      spriteFolders.forEach(function(folder) {
+      spriteFolders.forEach(folder => {
         var format, hasJpg, imagePath, images, spriteImages, stat;
         hasJpg = false;
         imagePath = sysPath.join(this.options.path, folder);
@@ -52,14 +52,14 @@
         }
         images = fs.readdirSync(imagePath);
         spriteImages = [];
-        images.forEach(function(image) {
+        images.forEach(image => {
           if (!hasJpg) {
             hasJpg = !!~this.jpegs.indexOf(sysPath.extname(image).toLowerCase());
           }
           if (!!~this.formats.indexOf(sysPath.extname(image).toLowerCase())) {
             spriteImages.push(sysPath.join(imagePath, image));
           }
-        }, this);
+        });
         format = this.options.imgOpts.format;
         if (this.options.imgOpts.format === 'auto') {
           format = hasJpg === true ? 'jpg' : 'png';
@@ -67,13 +67,13 @@
         if (spriteImages.length > 0) {
           alldone.push(this.generateSprites(spriteImages, folder, format));
         }
-      }, this);
+      });
       return Promise.all(alldone).then(sprites => {
         var styles, totalWidth, totalHeight;
         styles = '';
         totalWidth = 0;
         totalHeight = 0;
-        sprites.forEach(function(sprite) {          
+        sprites.forEach(sprite => {          
           sprite.coordinates.forEach(function(coordinate) {
             totalWidth += coordinate.width;
             totalHeight += coordinate.height;
@@ -88,7 +88,7 @@
           },{
             format: this.options.cssFormat
           });
-        }, this);
+        });
         this.writeStyles(styles);
       });
     }
@@ -126,11 +126,11 @@
           });
           mkdirp(imageFilePath.slice(0, imageFilePath.lastIndexOf("/")), function(err){
               if (err) {
-                console.log('Could not write directories for sprite files');
+                console.error('Could not write directories for sprite files', err);
               } else {
                 fs.writeFile(imageFilePath, result.image, 'binary', function(err){
                   if (err) {
-                    console.log('Could not write sprite files');
+                    console.error('Could not write sprite files', err);
                   }
                 });
               }
@@ -157,11 +157,11 @@
     if (sha !== sha2) {
       mkdirp(spritePath.slice(0,spritePath.lastIndexOf("/")), function(err) {
         if (err) {
-          console.log('Could not write directories for stylesheet');
+          console.error('Could not write directories for stylesheet', err);
         } else {
           fs.writeFile(spritePath, cssStr, 'utf8', function(err) {
             if (err) {
-              console.log('Could not write stylesheet');
+              console.error('Could not write stylesheet', err);
             }
           });
         }
