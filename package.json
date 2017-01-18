@@ -14,5 +14,12 @@
     "spritesheet-templates": "^10.2.1",
     "spritesmith": "^3.1.0"
   },
-  "license": "MIT"
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  }
 }

@@ -34,7 +34,7 @@
   SpriteBrunch.prototype.png = [".png", ".gif"];
   SpriteBrunch.prototype.jpegs = [".jpg", "jpeg"];
 
-  SpriteBrunch.prototype.compile = function(changedFiles) {
+  SpriteBrunch.prototype.compile = function() {
     var alldone, spriteFolders;
     if (!fs.existsSync(this.spritePath)) {
       return;
@@ -105,7 +105,7 @@
         quality: this.options.imgOpts.quality
       }
     };
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       spritesmith.run(spritesmithParams, (err, result) => {
         var allImages, hash, imageFile, imageFilePath;
         if (err) {
