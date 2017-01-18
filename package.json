@@ -1,6 +1,6 @@
 {
   "name": "sprite-brunch",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "Language agnostic sprite generator for brunch",
   "author": "Andrew Cox",
   "homepage": "https://github.com/aedryan/sprite-brunch",
