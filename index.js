@@ -83,7 +83,7 @@
             spritesheet: {
               width: totalWidth,
               height: totalHeight,
-              image: sprite.imageFile
+              image: "./" + this.options.destSprites.replace(/app\/assets|public/, '') + "/" + sprite.imageFile
             }
           },{
             format: this.options.cssFormat
