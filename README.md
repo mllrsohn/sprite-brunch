@@ -1,6 +1,6 @@
 ## sprite-brunch
 Sprite Generator for [brunch](http://brunch.io).
-It uses [Spritesmith](https://github.com/Ensighten/spritesmith) and [spritesheet-templates](https://github.com/twolfson/spritesheet-templates) to generate sprites and language agnostic styles.
+It uses [Spritesmith](https://github.com/Ensighten/spritesmith) and [spritesheet-templates](https://github.com/twolfson/spritesheet-templates) to generate sprites in language agnostic styles.
 
 ## Installation
 If using Less, SASS, etc., this should be ordered before their brunch compilers in package.json so that sprite styles compile before other styles.

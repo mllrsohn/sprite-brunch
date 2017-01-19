@@ -34,7 +34,7 @@
   SpriteBrunch.prototype.png = [".png", ".gif"];
   SpriteBrunch.prototype.jpegs = [".jpg", "jpeg"];
 
-  SpriteBrunch.prototype.compile = function() {
+  SpriteBrunch.prototype.compile = function(files) {
     var alldone, spriteFolders;
     if (!fs.existsSync(this.spritePath)) {
       return;
@@ -83,7 +83,7 @@
             spritesheet: {
               width: totalWidth,
               height: totalHeight,
-              image: sprite.imageFile
+              image: "./" + this.options.destSprites.replace(/app\/assets|public/, '') + "/" + sprite.imageFile
             }
           },{
             format: this.options.cssFormat
@@ -105,7 +105,7 @@
         quality: this.options.imgOpts.quality
       }
     };
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       spritesmith.run(spritesmithParams, (err, result) => {
         var allImages, hash, imageFile, imageFilePath;
         if (err) {
